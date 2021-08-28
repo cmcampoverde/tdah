@@ -31,7 +31,7 @@ export class EdahComponent implements OnInit {
   loadEdah = () => {
     this.questionService.query().subscribe((response => {
       this.dataSource = response.body as IQuestion[];
-    });
+    }));
   };
 
   sendEdahEmail = () => {
