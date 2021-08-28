@@ -1,0 +1,27 @@
+{
+  "tdahApp": {
+    "testEdah": {
+      "home": {
+        "title": "Test Edahs",
+        "createLabel": "Crear nuevo Test Edah",
+        "createOrEditLabel": "Crear o editar Test Edah",
+        "notFound": "Ningún Test Edahs encontrado"
+      },
+      "created": "Un nuevo Test Edah ha sido creado con el identificador {{ param }}",
+      "updated": "Un Test Edah ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Test Edah ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Test Edah {{ id }}?"
+      },
+      "detail": {
+        "title": "Test Edah"
+      },
+      "teacherEmail": "Teacher Email",
+      "answered": "Answered",
+      "key": "Key",
+      "teacherName": "Teacher Name",
+      "instructions": "Instructions",
+      "patient": "Patient"
+    }
+  }
+}

@@ -1,0 +1,58 @@
+<div>
+    <button mat-stroked-button (click)="setGridView()">{{textButtonGridView}}</button>
+</div>
+<div *ngIf="isGridView">
+    <div fxLayout="row wrap" fxLayoutGap="16px grid" style="background-color: #4c4c4c">
+        <div fxFlex="25%" *ngFor="let patient of patients">
+            <jhi-student-card [patient]="patient"></jhi-student-card>
+        </div>
+    </div>
+</div>
+<div *ngIf="!isGridView">
+    <mat-grid-list cols="2">
+        <div class="example-container mat-elevation-z8">
+            <div class="example-loading-shade"
+                 *ngIf="isLoadingResults">
+                <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+            </div>
+
+            <div class="example-table-container">
+
+                <table mat-table [dataSource]="children" class="example-table"
+                       matSort matSortActive="edge" matSortDisableClear matSortDirection="desc">
+                    <!-- Number Column -->
+                    <ng-container matColumnDef="number">
+                        <th mat-header-cell *matHeaderCellDef>#</th>
+                        <td mat-cell *matCellDef="let row">{{row.number}}</td>
+                    </ng-container>
+
+                    <!-- Title Column -->
+                    <ng-container matColumnDef="edge">
+                        <th mat-header-cell *matHeaderCellDef>Edad</th>
+                        <td mat-cell *matCellDef="let row">{{row.edge}}</td>
+                    </ng-container>
+
+                    <!-- State Column -->
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef>Nombre</th>
+                        <td mat-cell *matCellDef="let row">{{row.name}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="diagnostic">
+                        <th mat-header-cell *matHeaderCellDef>Diagnóstico</th>
+                        <td mat-cell *matCellDef="let row">{{row.diagnostic}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="tutor">
+                        <th mat-header-cell *matHeaderCellDef>Tutor</th>
+                        <td mat-cell *matCellDef="let row">{{row.tutor}}</td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            </div>
+            <mat-paginator [length]="children.length" [pageSize]="30"></mat-paginator>
+        </div>
+    </mat-grid-list>
+</div>

@@ -1,0 +1,29 @@
+.mat-figure {
+  align-items: start !important;
+  justify-content: flex-start !important ;
+}
+
+.round-image {
+  width: 30vh;
+  height: 30vh;
+  background-image: url('https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png');
+  background-size: cover;
+  display: block;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+}
+
+.user-form {
+  min-width: 250px;
+  max-width: 700px;
+  width: 100%;
+}
+
+.field-full-width {
+  width: 100%;
+}
+
+.field-middle-width {
+  width: 50%;
+}

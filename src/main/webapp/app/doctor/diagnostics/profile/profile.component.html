@@ -1,0 +1,64 @@
+<div *ngIf="patient">
+    <mat-card class="example-card">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title><h3>{{patient.name}}&nbsp;{{patient.lastName}}</h3></mat-card-title>
+            <mat-card-subtitle>{{patient.age}}&nbsp;años</mat-card-subtitle>
+        </mat-card-header>
+    </mat-card>
+
+    <mat-grid-list cols="3" rowHeight="50vh" class="align-start">
+        <mat-grid-tile>
+            <div class="round-image"></div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <div class="div-form">
+                <form class="user-form">
+                    <div class="form-group">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Nombre</mat-label>
+                            <input matInput placeholder="Nombre Completo" [value]="patient.name"/>
+                        </mat-form-field>
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Apellido</mat-label>
+                            <input matInput placeholder="Nombre Completo" [value]="patient.lastName"/>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Fecha de Nacimiento</mat-label>
+                            <input matInput [matDatepicker]="picker" [(ngModel)]="patient.birthday">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-group">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Representante</mat-label>
+                            <input matInput placeholder="Ejm: Papá/Mamá" [value]="patient.parent"/>
+                        </mat-form-field>
+
+                        <mat-form-field class="field-middle-width">
+                            <mat-label>Teléfono</mat-label>
+                            <input matInput placeholder="Ejm: 0998452106" [value]="patient.phoneParent">
+                        </mat-form-field>
+
+                        <mat-form-field class="field-middle-width">
+                            <mat-label>Dirección</mat-label>
+                            <input matInput placeholder="Ejm: Calderon" [value]="patient.address">
+                        </mat-form-field>
+                    </div>
+                </form>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <form class="user-form">
+                <div class="form-group">
+                    <mat-form-field style="width: 90%;">
+                        <textarea matInput rows="15" cols="20" style="font-size: 15px;" placeholder="Descripción General"
+                                  [value]="patient.description"></textarea>
+                    </mat-form-field>
+                </div>
+            </form>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

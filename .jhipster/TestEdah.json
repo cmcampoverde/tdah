@@ -1,0 +1,44 @@
+{
+  "fluentMethods": true,
+  "clientRootFolder": "",
+  "relationships": [
+    {
+      "relationshipName": "patient",
+      "otherEntityName": "patient",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "id",
+      "otherEntityRelationshipName": "testEdah"
+    }
+  ],
+  "fields": [
+    {
+      "fieldName": "teacherEmail",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "answered",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "key",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "teacherName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "instructions",
+      "fieldType": "String"
+    }
+  ],
+  "changelogDate": "20210828041314",
+  "dto": "mapstruct",
+  "searchEngine": false,
+  "service": "serviceClass",
+  "entityTableName": "test_edah",
+  "databaseType": "sql",
+  "readOnly": false,
+  "jpaMetamodelFiltering": false,
+  "pagination": "pagination"
+}

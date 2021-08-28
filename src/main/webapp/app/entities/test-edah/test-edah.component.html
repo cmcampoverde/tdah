@@ -1,0 +1,85 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="tdahApp.testEdah.home.title">Test Edahs</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-test-edah" [routerLink]="['/test-edah/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="tdahApp.testEdah.home.createLabel">
+            Create a new Test Edah
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="testEdahs?.length === 0">
+        <span jhiTranslate="tdahApp.testEdah.home.notFound">No testEdahs found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="testEdahs && testEdahs.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="teacherEmail"><span jhiTranslate="tdahApp.testEdah.teacherEmail">Teacher Email</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="answered"><span jhiTranslate="tdahApp.testEdah.answered">Answered</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="key"><span jhiTranslate="tdahApp.testEdah.key">Key</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="teacherName"><span jhiTranslate="tdahApp.testEdah.teacherName">Teacher Name</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="instructions"><span jhiTranslate="tdahApp.testEdah.instructions">Instructions</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="patientId"><span jhiTranslate="tdahApp.testEdah.patient">Patient</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let testEdah of testEdahs ;trackBy: trackId">
+                    <td><a [routerLink]="['/test-edah', testEdah.id, 'view']">{{ testEdah.id }}</a></td>
+                    <td>{{ testEdah.teacherEmail }}</td>
+                    <td>{{ testEdah.answered }}</td>
+                    <td>{{ testEdah.key }}</td>
+                    <td>{{ testEdah.teacherName }}</td>
+                    <td>{{ testEdah.instructions }}</td>
+                    <td>
+                        <div *ngIf="testEdah.patientId">
+                            <a [routerLink]="['/patient', testEdah.patientId , 'view']" >{{ testEdah.patientId }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/test-edah', testEdah.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/test-edah', testEdah.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(testEdah)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="testEdahs && testEdahs.length > 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+{
+  "tdahApp": {
+    "patient": {
+      "home": {
+        "title": "Patients",
+        "createLabel": "Crear nuevo Patient",
+        "createOrEditLabel": "Crear o editar Patient",
+        "notFound": "Ningún Patients encontrado"
+      },
+      "created": "Un nuevo Patient ha sido creado con el identificador {{ param }}",
+      "updated": "Un Patient ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Patient ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Patient {{ id }}?"
+      },
+      "detail": {
+        "title": "Patient"
+      },
+      "name": "Name",
+      "lastName": "Last Name",
+      "age": "Age",
+      "description": "Description",
+      "diagnostic": "Diagnostic",
+      "sex": "Sex",
+      "parent": "Parent",
+      "birthday": "Birthday",
+      "address": "Address",
+      "phoneParent": "Phone Parent"
+    }
+  }
+}

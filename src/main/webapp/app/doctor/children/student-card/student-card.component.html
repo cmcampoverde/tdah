@@ -1,0 +1,16 @@
+<div class="container-card" *ngIf="patient">
+    <mat-card class="example-card">
+        <mat-card-header>
+            <mat-card-title>{{patient.name}}&nbsp;{{patient.lastName}}</mat-card-title>
+            <mat-card-subtitle>Edad: {{patient.age}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <p class="diagnostic-box">
+                {{patient.description}}
+            </p>
+        </mat-card-content>
+        <mat-card-actions class="center-button">
+            <button mat-raised-button  (click)="openDiagnostic()">Observar</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

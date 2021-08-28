@@ -1,0 +1,18 @@
+<div>
+    <jhi-page-ribbon></jhi-page-ribbon>
+
+
+    <div *ngIf="isAuthenticated()">
+        <router-outlet name="navbar"></router-outlet>
+    </div>
+
+    <div class="container-fluid">
+        <div [ngClass]="{'card jh-card' : isAuthenticated()}" >
+            <router-outlet></router-outlet>
+        </div>
+
+        <jhi-footer></jhi-footer>
+    </div>
+
+
+</div>

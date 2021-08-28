@@ -1,0 +1,78 @@
+<div>
+    <mat-card>
+        <mat-card-subtitle>
+            <span>El EDAH, permite evaluar el déficit de atención con hiperactividad (TDAH) y recoge información sobre la conducta habitual del niño. ... El evaluador obtiene puntuaciones en 4 escalas: Hiperactividad, Déficit de atención, Hiperactividad con Déficit de atención y Trastorno de conducta.</span>
+        </mat-card-subtitle>
+    </mat-card>
+    <mat-grid-list cols="2" rowHeight="1:2">
+        <mat-grid-tile>
+            <div style="height: 100%; width: 100%; margin-top: 3rem;">
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="question">
+                        <th mat-header-cell *matHeaderCellDef> Pregunta</th>
+                        <td mat-cell *matCellDef="let element"> {{element.question}} </td>
+                    </ng-container>
+
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="options">
+                        <th mat-header-cell *matHeaderCellDef> Calificación</th>
+                        <td mat-cell *matCellDef="let element">
+                            <mat-radio-group aria-label="Select an option">
+                                <mat-radio-button value="0">0</mat-radio-button>
+                                <mat-radio-button value="1">1</mat-radio-button>
+                                <mat-radio-button value="2">2</mat-radio-button>
+                                <mat-radio-button value="3">3</mat-radio-button>
+                            </mat-radio-group>
+                        </td>
+                    </ng-container>
+
+
+                    <!-- Symbol Column -->
+                    <ng-container matColumnDef="type">
+                        <th mat-header-cell *matHeaderCellDef> Tipo</th>
+                        <td mat-cell *matCellDef="let element" class="text-xl-center"> {{element.type}} </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <div style="height: 100%; width: 70%; margin-top: 2rem;">
+                <mat-card style="background-color: #e0e0e0">
+                    <mat-card-header>
+                        <mat-card-title>
+                            Solicitar al Profesor
+                        </mat-card-title>
+                        <mat-card-subtitle>
+                            Se enviará un correo al Profesor para que llene el EDAH
+                        </mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <form>
+                            <div class="form-group">
+                                <mat-form-field class="field-full-width">
+                                    <mat-label>Email</mat-label>
+                                    <input matInput placeholder="Correo electrónico" [(ngModel)]="teacherEmail"/>
+                                </mat-form-field>
+                                <mat-form-field class="field-full-width">
+                                    <mat-label>Nombre</mat-label>
+                                    <input matInput placeholder="Profesor" [(ngModel)]="teacherName"/>
+                                </mat-form-field>
+                                <mat-form-field style="width: 90%;">
+                        <textarea matInput rows="5" cols="20" style="font-size: 15px;"
+                                  placeholder="Detalles o especificaciones(Opcional)" [(ngModel)]="edahDetails"></textarea>
+                                </mat-form-field>
+                            </div>
+                        </form>
+                    </mat-card-content>
+                   <mat-card-actions>
+                       <button mat-raised-button (click)="sendEdahEmail()">Enviar</button>
+                   </mat-card-actions>
+                </mat-card>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

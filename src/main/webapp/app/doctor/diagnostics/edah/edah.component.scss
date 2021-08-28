@@ -1,0 +1,26 @@
+.form-gradient .header {
+  border-top-left-radius: 0.3rem;
+  border-top-right-radius: 0.3rem;
+}
+
+.form-gradient input[type='text']:focus:not([readonly]) {
+  border-bottom: 1px solid #fd9267;
+  box-shadow: 0 1px 0 0 #fd9267;
+}
+
+.form-gradient input[type='text']:focus:not([readonly]) + label {
+  color: #4f4f4f;
+}
+
+.form-gradient textarea.md-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid #fd9267;
+  box-shadow: 0 1px 0 0 #fd9267;
+}
+
+.field-full-width {
+  width: 100%;
+}
+
+.field-middle-width {
+  width: 50%;
+}

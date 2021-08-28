@@ -1,0 +1,27 @@
+{
+  "tdahApp": {
+    "testEdah": {
+      "home": {
+        "title": "Test Edahs",
+        "createLabel": "Create a new Test Edah",
+        "createOrEditLabel": "Create or edit a Test Edah",
+        "notFound": "No Test Edahs found"
+      },
+      "created": "A new Test Edah is created with identifier {{ param }}",
+      "updated": "A Test Edah is updated with identifier {{ param }}",
+      "deleted": "A Test Edah is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Test Edah {{ id }}?"
+      },
+      "detail": {
+        "title": "Test Edah"
+      },
+      "teacherEmail": "Teacher Email",
+      "answered": "Answered",
+      "key": "Key",
+      "teacherName": "Teacher Name",
+      "instructions": "Instructions",
+      "patient": "Patient"
+    }
+  }
+}
