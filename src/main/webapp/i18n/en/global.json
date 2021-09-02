@@ -10,6 +10,7 @@
         "patient": "Patient",
         "question": "TDAH",
         "testEdah": "Test Edah",
+        "user": "User",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

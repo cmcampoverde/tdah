@@ -16,6 +16,10 @@ import { RouterModule } from '@angular/router';
         path: 'test-edah',
         loadChildren: () => import('./test-edah/test-edah.module').then(m => m.TdahTestEdahModule),
       },
+      {
+        path: 'user',
+        loadChildren: () => import('./user/user.module').then(m => m.TdahUserModule),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],

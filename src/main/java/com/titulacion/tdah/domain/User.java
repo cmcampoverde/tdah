@@ -87,6 +87,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "is_doctor")
     private boolean isDoctor;
 
+    @Column(name = "patient_id")
+    private Integer patientId;
+
     @JsonIgnore
     @ManyToMany
     @JoinTable(
@@ -206,6 +209,21 @@ public class User extends AbstractAuditingEntity implements Serializable {
     public boolean isDoctor() { return isDoctor; }
 
     public void setDoctor(boolean doctor) { this.isDoctor = doctor; }
+
+    public Integer getPatientId() {
+        return patientId;
+    }
+
+    public User patientId(Integer patientId) {
+        this.patientId = patientId;
+        return this;
+    }
+
+    public void setPatientId(Integer patientId) {
+        this.patientId = patientId;
+    }
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
+
 
     @Override
     public boolean equals(Object o) {

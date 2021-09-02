@@ -52,6 +52,8 @@ public class UserDTO {
 
     private boolean isDoctor;
 
+    private Long patientId;
+
     public UserDTO() {
         // Empty constructor needed for Jackson.
     }
@@ -185,6 +187,14 @@ public class UserDTO {
 
     public void setDoctor(boolean doctor) {
         isDoctor = doctor;
+    }
+
+    public Long getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(Long patientId) {
+        this.patientId = patientId;
     }
 
     // prettier-ignore

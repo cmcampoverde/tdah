@@ -6,7 +6,7 @@ import java.io.Serializable;
  * A DTO for the {@link com.titulacion.tdah.domain.TestEdah} entity.
  */
 public class TestEdahDTO implements Serializable {
-    
+
     private Long id;
 
     private String teacherEmail;
@@ -19,9 +19,8 @@ public class TestEdahDTO implements Serializable {
 
     private String instructions;
 
-
     private Long patientId;
-    
+
     public Long getId() {
         return id;
     }

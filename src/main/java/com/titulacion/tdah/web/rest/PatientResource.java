@@ -1,5 +1,8 @@
 package com.titulacion.tdah.web.rest;
 
+import com.titulacion.tdah.domain.User;
+import com.titulacion.tdah.repository.UserRepository;
+import com.titulacion.tdah.security.SecurityUtils;
 import com.titulacion.tdah.service.PatientService;
 import com.titulacion.tdah.web.rest.errors.BadRequestAlertException;
 import com.titulacion.tdah.service.dto.PatientDTO;
@@ -33,6 +36,12 @@ public class PatientResource {
 
     private final Logger log = LoggerFactory.getLogger(PatientResource.class);
 
+    private static class PatientResourceException extends RuntimeException {
+        private PatientResourceException(String message) {
+            super(message);
+        }
+    }
+
     private static final String ENTITY_NAME = "patient";
 
     @Value("${jhipster.clientApp.name}")
@@ -40,8 +49,11 @@ public class PatientResource {
 
     private final PatientService patientService;
 
-    public PatientResource(PatientService patientService) {
+    private final UserRepository userRepository;
+
+    public PatientResource(PatientService patientService, UserRepository userRepository) {
         this.patientService = patientService;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -111,6 +123,17 @@ public class PatientResource {
         return ResponseUtil.wrapOrNotFound(patientDTO);
     }
 
+
+    @GetMapping("/patient-data")
+    public ResponseEntity<PatientDTO> getPatient() {
+        String userLogin = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new PatientResource.PatientResourceException("Current user login not found"));
+        Optional<User> existingUser = userRepository.findOneWithAuthoritiesByLogin(userLogin);
+        if(!existingUser.isPresent()) throw new PatientResource.PatientResourceException("User could not be found");
+        Optional<PatientDTO> patientDTO = patientService.findOne(existingUser.get().getPatientId());
+        if(!patientDTO.isPresent()) throw new PatientResource.PatientResourceException("Patient could not be found");
+        return ResponseUtil.wrapOrNotFound(patientDTO);
+    }
+
     /**
      * {@code DELETE  /patients/:id} : delete the "id" patient.
      *
@@ -123,4 +146,6 @@ public class PatientResource {
         patientService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+
+
 }

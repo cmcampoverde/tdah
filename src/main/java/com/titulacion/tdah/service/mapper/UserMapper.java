@@ -2,6 +2,7 @@ package com.titulacion.tdah.service.mapper;
 
 import com.titulacion.tdah.domain.Authority;
 import com.titulacion.tdah.domain.User;
+import com.titulacion.tdah.repository.PatientRepository;
 import com.titulacion.tdah.service.dto.UserDTO;
 
 import org.springframework.stereotype.Service;
