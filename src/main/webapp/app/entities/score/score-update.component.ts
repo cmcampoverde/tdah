@@ -29,7 +29,7 @@ export class ScoreUpdateComponent implements OnInit {
     id: [],
     time: [],
     level: [],
-    creation_date: [],
+    creationDate: [],
     patientId: [],
     gameId: [],
   });
@@ -62,7 +62,7 @@ export class ScoreUpdateComponent implements OnInit {
       id: score.id,
       time: score.time,
       level: score.level,
-      creation_date: score.creationDate ? score.creationDate.format(DATE_TIME_FORMAT) : null,
+      creationDate: score.creationDate ? score.creationDate.format(DATE_TIME_FORMAT) : null,
       patientId: score.patientId,
       gameId: score.gameId,
     });
