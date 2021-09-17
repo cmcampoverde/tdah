@@ -46,7 +46,7 @@ export class ScoreUpdateComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ score }) => {
       if (!score.id) {
         const today = moment().startOf('day');
-        score.creation_date = today;
+        score.creationDate = today;
       }
 
       this.updateForm(score);
