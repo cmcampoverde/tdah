@@ -1,0 +1,22 @@
+{
+  "tdahApp": {
+    "game": {
+      "home": {
+        "title": "Games",
+        "createLabel": "Crear nuevo Game",
+        "createOrEditLabel": "Crear o editar Game",
+        "notFound": "Ningún Games encontrado"
+      },
+      "created": "Un nuevo Game ha sido creado con el identificador {{ param }}",
+      "updated": "Un Game ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Game ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Game {{ id }}?"
+      },
+      "detail": {
+        "title": "Game"
+      },
+      "name": "Name"
+    }
+  }
+}

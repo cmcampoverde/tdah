@@ -11,6 +11,8 @@
         "question": "TDAH",
         "testEdah": "Test Edah",
         "user": "User",
+        "game": "Game",
+        "score": "Score",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
