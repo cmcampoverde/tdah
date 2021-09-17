@@ -36,7 +36,7 @@
                     <td><a [routerLink]="['/score', score.id, 'view']">{{ score.id }}</a></td>
                     <td>{{ score.time }}</td>
                     <td>{{ score.level }}</td>
-                    <td>{{ score.creation_date | date:'medium' }}</td>
+                    <td>{{ score.creationDate | date:'medium' }}</td>
                     <td>
                         <div *ngIf="score.patientId">
                             <a [routerLink]="['/patient', score.patientId , 'view']" >{{ score.patientId }}</a>

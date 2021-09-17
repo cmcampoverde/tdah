@@ -50,14 +50,14 @@ export class ScoreService {
 
   protected convertDateFromClient(score: IScore): IScore {
     const copy: IScore = Object.assign({}, score, {
-      creation_date: score.creation_date && score.creation_date.isValid() ? score.creation_date.toJSON() : undefined,
+      creationDate: score.creationDate && score.creationDate.isValid() ? score.creationDate.toJSON() : undefined,
     });
     return copy;
   }
 
   protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
     if (res.body) {
-      res.body.creation_date = res.body.creation_date ? moment(res.body.creation_date) : undefined;
+      res.body.creationDate = res.body.creationDate ? moment(res.body.creationDate) : undefined;
     }
     return res;
   }
@@ -65,7 +65,7 @@ export class ScoreService {
   protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
     if (res.body) {
       res.body.forEach((score: IScore) => {
-        score.creation_date = score.creation_date ? moment(score.creation_date) : undefined;
+        score.creationDate = score.creationDate ? moment(score.creationDate) : undefined;
       });
     }
     return res;

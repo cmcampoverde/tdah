@@ -62,7 +62,7 @@ export class ScoreUpdateComponent implements OnInit {
       id: score.id,
       time: score.time,
       level: score.level,
-      creation_date: score.creation_date ? score.creation_date.format(DATE_TIME_FORMAT) : null,
+      creation_date: score.creationDate ? score.creationDate.format(DATE_TIME_FORMAT) : null,
       patientId: score.patientId,
       gameId: score.gameId,
     });
@@ -88,7 +88,7 @@ export class ScoreUpdateComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       time: this.editForm.get(['time'])!.value,
       level: this.editForm.get(['level'])!.value,
-      creation_date: this.editForm.get(['creation_date'])!.value
+      creationDate: this.editForm.get(['creation_date'])!.value
         ? moment(this.editForm.get(['creation_date'])!.value, DATE_TIME_FORMAT)
         : undefined,
       patientId: this.editForm.get(['patientId'])!.value,
