@@ -58,14 +58,14 @@ spring:
     # Remove 'faker' if you do not want the sample data to be loaded automatically
     contexts: dev, faker
   mail:
-    host: smtp.gmail.com
+    host: smtp.office365.com
     port: 587
-    username: carlos.ingsold17@gmail.com
-    password: jouxznpltvwjnrvk
+    username: carlos_ingsold@hotmail.com
+    password: Carlos170895
     protocol: smtp
     properties.mail.smtp:
       auth: true
-      ssl.trust: smtp.gmail.com
+      ssl.trust: smtp.office365.com
       starttls.enable: true
       starttls.required: true
       connectiontimeout: 5000

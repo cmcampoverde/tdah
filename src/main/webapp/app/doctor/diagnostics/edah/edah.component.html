@@ -55,15 +55,15 @@
                             <div class="form-group">
                                 <mat-form-field class="field-full-width">
                                     <mat-label>Email</mat-label>
-                                    <input matInput placeholder="Correo electrónico" [(ngModel)]="teacherEmail"/>
+                                    <input matInput name="teacherEmail" placeholder="Correo electrónico" [(ngModel)]="teacherEmail"/>
                                 </mat-form-field>
                                 <mat-form-field class="field-full-width">
                                     <mat-label>Nombre</mat-label>
-                                    <input matInput placeholder="Profesor" [(ngModel)]="teacherName"/>
+                                    <input matInput name="teacherName" placeholder="Profesor" [(ngModel)]="teacherName"/>
                                 </mat-form-field>
                                 <mat-form-field style="width: 90%;">
                         <textarea matInput rows="5" cols="20" style="font-size: 15px;"
-                                  placeholder="Detalles o especificaciones(Opcional)" [(ngModel)]="edahDetails"></textarea>
+                                  name="edahDetails" placeholder="Detalles o especificaciones(Opcional)" [(ngModel)]="edahDetails"></textarea>
                                 </mat-form-field>
                             </div>
                         </form>

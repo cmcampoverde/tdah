@@ -162,7 +162,7 @@ jhipster:
   #     allow-credentials: true
   #     max-age: 1800
   mail:
-    from: tdah@localhost
+    from: carlos_ingsold@hotmail.com
   swagger:
     default-include-pattern: /api/.*
     title: tdah API

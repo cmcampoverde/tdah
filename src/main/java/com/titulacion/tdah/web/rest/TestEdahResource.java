@@ -1,5 +1,6 @@
 package com.titulacion.tdah.web.rest;
 
+import com.titulacion.tdah.service.MailService;
 import com.titulacion.tdah.service.TestEdahService;
 import com.titulacion.tdah.web.rest.errors.BadRequestAlertException;
 import com.titulacion.tdah.service.dto.TestEdahDTO;
@@ -39,8 +40,12 @@ public class TestEdahResource {
 
     private final TestEdahService testEdahService;
 
-    public TestEdahResource(TestEdahService testEdahService) {
+    private final MailService mailService;
+
+
+    public TestEdahResource(TestEdahService testEdahService, MailService mailService) {
         this.testEdahService = testEdahService;
+        this.mailService = mailService;
     }
 
     /**
@@ -72,6 +77,12 @@ public class TestEdahResource {
         return ResponseEntity.created(new URI("/api/test-edahs/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
+    }
+
+    @PostMapping("/test-edahs/send-test")
+    public ResponseEntity<String> sendTestEmail() throws URISyntaxException {
+        mailService.sendEmail("carlos_ingsold@hotmail.com", "example", "content", true, false);
+        return ResponseEntity.ok("ok");
     }
 
     /**
