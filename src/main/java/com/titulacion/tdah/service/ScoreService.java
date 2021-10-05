@@ -111,6 +111,7 @@ public class ScoreService {
     public List<Score> getLowersByLevelByGame(int idGame) {
         List<Score> allScores = scoreRepository.findAll();
         List<Score> scores = allScores.stream().filter(score -> score.getGame().getId() == idGame).collect(Collectors.toList());
+
         Comparator<Score> comparator = new Comparator<Score>() {
             @Override
             public int compare(Score o1, Score o2) {
@@ -178,5 +179,69 @@ public class ScoreService {
     public void delete(Long id) {
         log.debug("Request to delete Score : {}", id);
         scoreRepository.deleteById(id);
+    }
+
+    public List<ResultLastLevel> getLastLevelsByGame() {
+        log.debug("Request to get last levels by Game");
+        List<Score> scores = scoreRepository.findAll();
+
+        Comparator<Score> comparator = new Comparator<Score>() {
+            @Override
+            public int compare(Score o1, Score o2) {
+                return o1.getLevel() - o2.getLevel();
+            }
+        };
+
+        Optional<Score> level1 = scores.stream().filter(score -> score.getGame().getId() == 1 ).max(comparator);
+        Optional<Score> level2 = scores.stream().filter(score -> score.getGame().getId() == 2 ).max(comparator);
+        Optional<Score> level3 = scores.stream().filter(score -> score.getGame().getId() == 3 ).max(comparator);
+
+        List<ResultLastLevel> resultLastLevelList = new ArrayList<>();
+
+        if(level1.isPresent()) {
+                resultLastLevelList.add(new ResultLastLevel(1, level1.get().getLevel()));
+        } else {
+            resultLastLevelList.add(new ResultLastLevel(1, 0));
+        }
+
+        if(level2.isPresent()) {
+            resultLastLevelList.add(new ResultLastLevel(2, level2.get().getLevel()));
+        } else {
+            resultLastLevelList.add(new ResultLastLevel(2, 0));
+        }
+
+        if(level3.isPresent()) {
+            resultLastLevelList.add(new ResultLastLevel(3, level3.get().getLevel()));
+        } else {
+            resultLastLevelList.add(new ResultLastLevel(3, 0));
+        }
+
+        return resultLastLevelList;
+    }
+
+    public static class ResultLastLevel implements Serializable{
+        int idGame;
+        int lastLevel;
+
+        public ResultLastLevel(int idGame, int lastLevel) {
+            this.idGame = idGame;
+            this.lastLevel = lastLevel;
+        }
+
+        public int getIdGame() {
+            return idGame;
+        }
+
+        public void setIdGame(int idGame) {
+            this.idGame = idGame;
+        }
+
+        public int getLastLevel() {
+            return lastLevel;
+        }
+
+        public void setLastLevel(int lastLevel) {
+            this.lastLevel = lastLevel;
+        }
     }
 }

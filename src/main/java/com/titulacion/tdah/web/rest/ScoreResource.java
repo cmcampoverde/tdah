@@ -1,6 +1,7 @@
 package com.titulacion.tdah.web.rest;
 
 import com.titulacion.tdah.service.ScoreService;
+import com.titulacion.tdah.service.dto.GameDTO;
 import com.titulacion.tdah.web.rest.errors.BadRequestAlertException;
 import com.titulacion.tdah.service.dto.ScoreDTO;
 
@@ -134,5 +135,17 @@ public class ScoreResource {
         log.debug("REST request to get a page of Scores");
         List<ScoreService.ResultLower> scores = scoreService.findLowersScores();
         return ResponseEntity.ok().body(scores);
+    }
+
+    /**
+     * {@code GET  /scores/last-levels} : get last levels by games.
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of last levels by games in body.
+     */
+    @GetMapping("/scores/last-levels")
+    public ResponseEntity<List<ScoreService.ResultLastLevel>> getALastLevelsByGames() {
+        log.debug("REST request to get a page of Games");
+        List<ScoreService.ResultLastLevel> scoreServiceLastLevelsByGame= scoreService.getLastLevelsByGame();
+        return ResponseEntity.ok().body(scoreServiceLastLevelsByGame);
     }
 }
