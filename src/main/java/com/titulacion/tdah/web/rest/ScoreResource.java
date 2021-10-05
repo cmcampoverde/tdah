@@ -122,4 +122,17 @@ public class ScoreResource {
         scoreService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+
+    /**
+     * {@code GET  /scores/lowers} : get the list of lowers scores by level
+     *
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of scores in body.
+     */
+    @GetMapping("/scores/lowers")
+    public ResponseEntity<List<ScoreService.ResultLower>> getLowersScores() {
+        log.debug("REST request to get a page of Scores");
+        List<ScoreService.ResultLower> scores = scoreService.findLowersScores();
+        return ResponseEntity.ok().body(scores);
+    }
 }
