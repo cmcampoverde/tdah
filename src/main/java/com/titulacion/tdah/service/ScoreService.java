@@ -126,6 +126,7 @@ public class ScoreService {
         Score newAux = new Score();
 
         List<Score> lowers = new ArrayList<Score>();
+        newAux = new Score();
         if(level1.isPresent()){
             newAux = level1.get();
             newAux.setPatient(null);
@@ -135,7 +136,7 @@ public class ScoreService {
             newAux.setTime(0.0);
             lowers.add(newAux);
         }
-
+        newAux = new Score();
         if(level2.isPresent()){
             newAux = level2.get();
             newAux.setPatient(null);
@@ -145,7 +146,7 @@ public class ScoreService {
             newAux.setTime(0.0);
             lowers.add(newAux);
         }
-
+        newAux = new Score();
         if(level3.isPresent()){
             newAux = level3.get();
             newAux.setPatient(null);
