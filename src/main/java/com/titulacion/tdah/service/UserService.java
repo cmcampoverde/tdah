@@ -7,6 +7,7 @@ import com.titulacion.tdah.repository.AuthorityRepository;
 import com.titulacion.tdah.repository.UserRepository;
 import com.titulacion.tdah.security.AuthoritiesConstants;
 import com.titulacion.tdah.security.SecurityUtils;
+import com.titulacion.tdah.service.dto.PatientDTO;
 import com.titulacion.tdah.service.dto.UserDTO;
 
 import io.github.jhipster.security.RandomUtil;
@@ -121,6 +122,32 @@ public class UserService {
             authorityRepository.findById(AuthoritiesConstants.DOCTOR).ifPresent(authorities::add);
         else
             authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
+        newUser.setAuthorities(authorities);
+        userRepository.save(newUser);
+        this.clearUserCaches(newUser);
+        log.debug("Created Information for User: {}", newUser);
+        return newUser;
+    }
+
+    public User registerPatientUser(PatientDTO patientDTO) {
+        String username = patientDTO.getName().trim().toLowerCase() + patientDTO.getLastName().trim().toLowerCase();
+        userRepository.findOneByLogin(username).ifPresent(existingUser -> {
+            boolean removed = removeNonActivatedUser(existingUser);
+            if (!removed) {
+                throw new UsernameAlreadyUsedException();
+            }
+        });
+        User newUser = new User();
+        newUser.setPatientId(patientDTO.getId());
+        String encryptedPassword = passwordEncoder.encode(username);
+        newUser.setLogin(username);
+        newUser.setPassword(encryptedPassword);
+        newUser.setFirstName(patientDTO.getName());
+        newUser.setLastName(patientDTO.getLastName());
+        newUser.setLangKey("es");
+        newUser.setActivated(true);
+        Set<Authority> authorities = new HashSet<>();
+        authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
         this.clearUserCaches(newUser);

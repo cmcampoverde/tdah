@@ -4,6 +4,7 @@ import com.titulacion.tdah.domain.User;
 import com.titulacion.tdah.repository.UserRepository;
 import com.titulacion.tdah.security.SecurityUtils;
 import com.titulacion.tdah.service.PatientService;
+import com.titulacion.tdah.service.UserService;
 import com.titulacion.tdah.web.rest.errors.BadRequestAlertException;
 import com.titulacion.tdah.service.dto.PatientDTO;
 
@@ -48,12 +49,14 @@ public class PatientResource {
     private String applicationName;
 
     private final PatientService patientService;
+    private final UserService userService;
 
     private final UserRepository userRepository;
 
-    public PatientResource(PatientService patientService, UserRepository userRepository) {
+    public PatientResource(PatientService patientService, UserRepository userRepository, UserService userService) {
         this.patientService = patientService;
         this.userRepository = userRepository;
+        this.userService = userService;
     }
 
     /**
@@ -70,6 +73,7 @@ public class PatientResource {
             throw new BadRequestAlertException("A new patient cannot already have an ID", ENTITY_NAME, "idexists");
         }
         PatientDTO result = patientService.save(patientDTO);
+        userService.registerPatientUser(result);
         return ResponseEntity.created(new URI("/api/patients/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
