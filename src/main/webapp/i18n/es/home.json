@@ -14,6 +14,12 @@
       "follow": "contacto @jhipster en Twitter"
     },
     "like": "Si te gusta JHipster, danos una estrella en",
-    "github": "GitHub"
+    "github": "GitHub",
+    "patients": "Pacientes",
+    "goToPatients": "Ver Pacientes",
+    "scores": "Puntajes",
+    "goToScores": "Ir a Puntajes",
+    "games": "Juegos",
+    "goToGames": "Ver Juegos"
   }
 }

@@ -65,11 +65,8 @@
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="tdahApp.patient.sex" for="field_sex">Sex</label>
-
-                    <select class="form-control" formControlName="sex" name="sex" id="field_sex">
-                        <option value="Masculino">Masculino</option>
-                        <option value="Femenino">Femenino</option>
-                    </select>
+                    <input type="text" class="form-control" name="sex" id="field_sex"
+                           formControlName="sex"/>
                     <div *ngIf="editForm.get('sex')!.invalid && (editForm.get('sex')!.dirty || editForm.get('sex')!.touched)">
                         <small class="form-text text-danger"
                                *ngIf="editForm.get('sex')?.errors?.required" jhiTranslate="entity.validation.required">

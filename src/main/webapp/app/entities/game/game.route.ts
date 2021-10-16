@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { Resolve, ActivatedRouteSnapshot, Routes, Router } from '@angular/router';
-import { Observable, of, EMPTY } from 'rxjs';
+import { ActivatedRouteSnapshot, Resolve, Router, Routes } from '@angular/router';
+import { EMPTY, Observable, of } from 'rxjs';
 import { flatMap } from 'rxjs/operators';
 
 import { Authority } from 'app/shared/constants/authority.constants';
 import { UserRouteAccessService } from 'app/core/auth/user-route-access-service';
-import { IGame, Game } from 'app/shared/model/game.model';
+import { Game, IGame } from 'app/shared/model/game.model';
 import { GameService } from './game.service';
 import { GameComponent } from './game.component';
 import { GameDetailComponent } from './game-detail.component';
@@ -38,7 +38,7 @@ export const gameRoute: Routes = [
     path: '',
     component: GameComponent,
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.USER, Authority.DOCTOR],
       defaultSort: 'id,asc',
       pageTitle: 'tdahApp.game.home.title',
     },
@@ -51,7 +51,7 @@ export const gameRoute: Routes = [
       game: GameResolve,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.USER, Authority.DOCTOR],
       pageTitle: 'tdahApp.game.home.title',
     },
     canActivate: [UserRouteAccessService],

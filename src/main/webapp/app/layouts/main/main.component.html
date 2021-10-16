@@ -6,12 +6,12 @@
         <router-outlet name="navbar"></router-outlet>
     </div>
 
-    <div class="container-fluid">
+    <div class="container-fluid" style="width: 100vw">
         <div [ngClass]="{'card jh-card' : isAuthenticated()}" >
             <router-outlet></router-outlet>
         </div>
 
-        <jhi-footer></jhi-footer>
+        <jhi-footer *ngIf="isAuthenticated()"></jhi-footer>
     </div>
 
 

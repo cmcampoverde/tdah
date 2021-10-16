@@ -56,6 +56,6 @@
   "entityTableName": "patient",
   "databaseType": "sql",
   "readOnly": false,
-  "jpaMetamodelFiltering": false,
+  "jpaMetamodelFiltering": true,
   "pagination": "pagination"
 }

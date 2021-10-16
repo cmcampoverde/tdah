@@ -24,7 +24,6 @@ public class Patient implements Serializable {
     @Column(name = "id", unique = true, nullable = false)
     private Integer id;
 
-
     @NotNull
     @Column(name = "name", nullable = false)
     private String name;
@@ -43,6 +42,7 @@ public class Patient implements Serializable {
     @Column(name = "diagnostic")
     private String diagnostic;
 
+    @NotNull
     @Column(name = "sex", nullable = false)
     private String sex;
 

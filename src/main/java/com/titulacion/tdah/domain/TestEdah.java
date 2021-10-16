@@ -21,7 +21,7 @@ public class TestEdah implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
-    private Long id;
+    private Integer id;
 
     @Column(name = "teacher_email")
     private String teacherEmail;
@@ -39,15 +39,16 @@ public class TestEdah implements Serializable {
     private String instructions;
 
     @ManyToOne
+    @JsonIgnoreProperties(value = "testEdahs", allowSetters = true)
     @JoinColumn(name = "patient_id")
     private Patient patient;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

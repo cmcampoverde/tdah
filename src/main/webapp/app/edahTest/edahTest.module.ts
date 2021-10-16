@@ -7,9 +7,10 @@ import { edahTestState } from './edahTest.route';
 import { EdahTestComponent } from './test/edahTest.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
-  imports: [TdahSharedModule, RouterModule.forChild(edahTestState), MatTableModule, MatRadioModule],
+  imports: [TdahSharedModule, RouterModule.forChild(edahTestState), MatTableModule, MatRadioModule, MatCardModule],
   declarations: [EdahTestComponent],
 })
 export class EdahTestModule {}

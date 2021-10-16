@@ -1,9 +1,10 @@
 package com.titulacion.tdah.web.rest;
 
-import com.titulacion.tdah.service.MailService;
 import com.titulacion.tdah.service.TestEdahService;
 import com.titulacion.tdah.web.rest.errors.BadRequestAlertException;
 import com.titulacion.tdah.service.dto.TestEdahDTO;
+import com.titulacion.tdah.service.dto.TestEdahCriteria;
+import com.titulacion.tdah.service.TestEdahQueryService;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
@@ -40,12 +41,11 @@ public class TestEdahResource {
 
     private final TestEdahService testEdahService;
 
-    private final MailService mailService;
+    private final TestEdahQueryService testEdahQueryService;
 
-
-    public TestEdahResource(TestEdahService testEdahService, MailService mailService) {
+    public TestEdahResource(TestEdahService testEdahService, TestEdahQueryService testEdahQueryService) {
         this.testEdahService = testEdahService;
-        this.mailService = mailService;
+        this.testEdahQueryService = testEdahQueryService;
     }
 
     /**
@@ -65,24 +65,6 @@ public class TestEdahResource {
         return ResponseEntity.created(new URI("/api/test-edahs/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
-    }
-
-    @PostMapping("/test-edahs/send-edah")
-    public ResponseEntity<TestEdahDTO> sendTestEdah(@RequestBody TestEdahDTO testEdahDTO) throws URISyntaxException {
-        log.debug("REST request to save and send TestEdah : {}", testEdahDTO);
-        if (testEdahDTO.getId() != null) {
-            throw new BadRequestAlertException("A new testEdah cannot already have an ID", ENTITY_NAME, "idexists");
-        }
-        TestEdahDTO result = testEdahService.saveToSendEmail(testEdahDTO);
-        return ResponseEntity.created(new URI("/api/test-edahs/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
-            .body(result);
-    }
-
-    @PostMapping("/test-edahs/send-test")
-    public ResponseEntity<String> sendTestEmail() throws URISyntaxException {
-        mailService.sendEmail("carlos_ingsold@hotmail.com", "example", "content", true, false);
-        return ResponseEntity.ok("ok");
     }
 
     /**
@@ -110,14 +92,27 @@ public class TestEdahResource {
      * {@code GET  /test-edahs} : get all the testEdahs.
      *
      * @param pageable the pagination information.
+     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of testEdahs in body.
      */
     @GetMapping("/test-edahs")
-    public ResponseEntity<List<TestEdahDTO>> getAllTestEdahs(Pageable pageable) {
-        log.debug("REST request to get a page of TestEdahs");
-        Page<TestEdahDTO> page = testEdahService.findAll(pageable);
+    public ResponseEntity<List<TestEdahDTO>> getAllTestEdahs(TestEdahCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get TestEdahs by criteria: {}", criteria);
+        Page<TestEdahDTO> page = testEdahQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * {@code GET  /test-edahs/count} : count all the testEdahs.
+     *
+     * @param criteria the criteria which the requested entities should match.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
+     */
+    @GetMapping("/test-edahs/count")
+    public ResponseEntity<Long> countTestEdahs(TestEdahCriteria criteria) {
+        log.debug("REST request to count TestEdahs by criteria: {}", criteria);
+        return ResponseEntity.ok().body(testEdahQueryService.countByCriteria(criteria));
     }
 
     /**
@@ -127,7 +122,7 @@ public class TestEdahResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the testEdahDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/test-edahs/{id}")
-    public ResponseEntity<TestEdahDTO> getTestEdah(@PathVariable Long id) {
+    public ResponseEntity<TestEdahDTO> getTestEdah(@PathVariable Integer id) {
         log.debug("REST request to get TestEdah : {}", id);
         Optional<TestEdahDTO> testEdahDTO = testEdahService.findOne(id);
         return ResponseUtil.wrapOrNotFound(testEdahDTO);
@@ -140,7 +135,7 @@ public class TestEdahResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/test-edahs/{id}")
-    public ResponseEntity<Void> deleteTestEdah(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteTestEdah(@PathVariable Integer id) {
         log.debug("REST request to delete TestEdah : {}", id);
         testEdahService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();

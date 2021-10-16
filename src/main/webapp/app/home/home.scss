@@ -1,6 +1,70 @@
 /* ==========================================================================
 Main page styles
 ========================================================================== */
+.row {
+  background-color: #2f053a;
+}
+
+.form-login {
+  color: white;
+  position: relative;
+  .modal-body {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+
+  .forget-password {
+    text-align: center;
+    margin-top: 1rem;
+    a {
+      font-weight: 200;
+      font-size: smaller;
+    }
+    a:hover {
+      font-weight: 300;
+      color: #e1960d;
+    }
+  }
+}
+
+#wave-container {
+  width: 100%;
+  height: 100px;
+  overflow: hidden;
+}
+
+#wave {
+  display: block;
+  position: relative;
+  height: 40px;
+  background: black;
+}
+
+#wave:before {
+  content: '';
+  display: block;
+  position: absolute;
+  border-radius: 100%;
+  width: 100%;
+  height: 300px;
+  background-color: white;
+  right: -25%;
+  top: 20px;
+}
+
+#wave:after {
+  content: '';
+  display: block;
+  position: absolute;
+  border-radius: 100%;
+  width: 100%;
+  height: 300px;
+  background-color: black;
+  left: -25%;
+  top: -240px;
+}
+
 .background-gray {
   background-color: #efefef;
 }
@@ -21,6 +85,7 @@ Main page styles
   // background: url('../../content/images/jhipster_family_member_3.svg') no-repeat center top;
   background: url('../../content/images/logo_tdah_fondo.png');
   background-size: cover;
+  background-color: #2f053a;
 }
 
 /* wait autoprefixer update to allow simple generation of high pixel density media query */
@@ -36,5 +101,6 @@ Main page styles
   .hipster {
     background: url('../../content/images/logo_tdah_fondo.png') no-repeat center top;
     background-size: contain;
+    background-color: #2f053a;
   }
 }

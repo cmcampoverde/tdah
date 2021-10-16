@@ -28,6 +28,10 @@ import { RouterModule } from '@angular/router';
         path: 'score',
         loadChildren: () => import('./score/score.module').then(m => m.TdahScoreModule),
       },
+      {
+        path: 'test-answer',
+        loadChildren: () => import('./test-answer/test-answer.module').then(m => m.TdahTestAnswerModule),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],

@@ -1,8 +1,54 @@
-<div class="row">
+<div class="row" *ngIf="!isAuthenticated()">
     <div class="col-md-6">
         <span class="hipster"></span>
     </div>
+    <div class="col-md-6 form-login">
+        <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-danger" *ngIf="authenticationError" jhiTranslate="login.messages.error.authentication">
+                    <strong>Failed to sign in!</strong> Please check your credentials and try again.
+                </div>
+            </div>
 
+            <div class="col-md-12">
+                <form class="form" role="form" (ngSubmit)="login()" [formGroup]="loginForm">
+                    <div class="form-group">
+                        <label class="username-label" for="username" jhiTranslate="global.form.username.label">Login</label>
+                        <input type="text" class="form-control" name="username" id="username" placeholder="{{ 'global.form.username.placeholder' | translate }}"
+                               formControlName="username" #username>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" jhiTranslate="login.form.password">Password</label>
+                        <input type="password" class="form-control" name="password" id="password" placeholder="{{ 'login.form.password.placeholder' | translate }}"
+                               formControlName="password">
+                    </div>
+
+                    <div class="form-check">
+                        <label class="form-check-label" for="rememberMe">
+                            <input class="form-check-input" type="checkbox" name="rememberMe" id="rememberMe" formControlName="rememberMe">
+                            <span jhiTranslate="login.form.rememberme">Remember me</span>
+                        </label>
+                    </div>
+<div style="text-align: center; padding-top: 1rem;">
+    <button type="submit" class="btn btn-primary" jhiTranslate="login.form.button">Sign in</button>
+</div>
+                </form>
+                <div class="forget-password">
+                    <a class="link-login" (click)="requestResetPassword()" jhiTranslate="login.password.forgot">Did you forget your password?</a>
+                </div>
+                <!--
+                <div class="">
+                    <span jhiTranslate="global.messages.info.register.noaccount">You don't have an account yet?</span>
+                    <a class="alert-link" (click)="register()" jhiTranslate="global.messages.info.register.link">Register a new account</a>
+                </div>
+                -->
+            </div>
+        </div>
+        </div>
+    </div>
+    <!--
     <div class="col-md-6 background-gray">
         <div class="title-space animate__animated animate__bounce">
             <h1 class="display-4" jhiTranslate="home.title">Welcome, Neuro TDAH!</h1>
@@ -34,7 +80,6 @@
             </div>
         </div>
 
-        <!--
         <p jhiTranslate="home.question">
             If you have any question on JHipster:
         </p>
@@ -57,6 +102,65 @@
             href="https://github.com/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer"
             jhiTranslate="home.github">GitHub</a>!
         </p>
-        -->
+    </div>
+-->
+</div>
+
+<div *ngIf="isAuthenticated()">
+    <div class="row">
+    <div class="col-md-4 background-gray">
+        <div class="title-space">
+            <h3 class="display-6 center animate__animated animate__bounce"
+                jhiTranslate="home.patients">Patients</h3>
+            <mat-card>
+                <mat-card-content>
+                    <div style="height: 300px; position: relative">
+                    <img style="position: absolute; width: 100%" src="https://www.bupasalud.com.co/sites/default/files/styles/large/public/articulos/2020-10/fotos/TDAH.jpg?itok=LjtgDVtE">
+                    </div>
+                </mat-card-content>
+                <mat-card-footer>
+                    <div style="text-align: center; padding: 0.5rem;">
+                    <button type="button" class="btn btn-primary" routerLink="doctor/children"
+                            jhiTranslate="home.goToPatients">Go To Patients</button>
+                </div></mat-card-footer>
+            </mat-card>
+        </div>
+    </div>
+    <div class="col-md-4 background-gray">
+        <div class="title-space">
+            <h3 class="display-6 center animate__animated animate__bounce"
+                jhiTranslate="home.scores">Scores</h3>
+            <mat-card>
+                <mat-card-content>
+                    <div style="height: 300px; position: relative">
+                        <img style="position: absolute; width: 100%" src="https://static2.valledeelda.com/media/k2/items/cache/b75a01f8abc580808d2fa3275942cb5c_M.jpg">
+                    </div>
+                </mat-card-content>
+                <mat-card-footer>
+                    <div style="text-align: center; padding: 0.5rem;">
+                        <button type="button" class="btn btn-primary" routerLink="/doctor/reports"
+                                jhiTranslate="home.goToScores" >Go To Scores</button>
+                    </div></mat-card-footer>
+            </mat-card>
+        </div>
+    </div>
+    <div class="col-md-4 background-gray">
+        <div class="title-space">
+            <h3 class="display-6 center animate__animated animate__bounce"
+                jhiTranslate="home.games">Games</h3>
+            <mat-card>
+                <mat-card-content>
+                    <div style="height: 300px; position: relative">
+                        <img style="position: absolute; width: 100%" src="https://image.winudf.com/v2/image1/Y29tLmdhbWUuY2VudGVyLmFsbGdhbWVzX3NjcmVlbl8wXzE1OTc1NzkxODJfMDI4/screen-0.jpg?h=710&fakeurl=1&type=.jpg">
+                    </div>
+                </mat-card-content>
+                <mat-card-footer>
+                    <div style="text-align: center; padding: 0.5rem;">
+                        <button type="button" class="btn btn-primary" routerLink="game"
+                                jhiTranslate="home.goToGames">Go to Games</button>
+                    </div></mat-card-footer>
+            </mat-card>
+        </div>
+    </div>
     </div>
 </div>

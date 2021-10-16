@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 public class TestEdahDTO implements Serializable {
 
-    private Long id;
+    private Integer id;
 
     private String teacherEmail;
 
@@ -19,13 +19,14 @@ public class TestEdahDTO implements Serializable {
 
     private String instructions;
 
-    private Long patientId;
 
-    public Long getId() {
+    private Integer patientId;
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -69,11 +70,11 @@ public class TestEdahDTO implements Serializable {
         this.instructions = instructions;
     }
 
-    public Long getPatientId() {
+    public Integer getPatientId() {
         return patientId;
     }
 
-    public void setPatientId(Long patientId) {
+    public void setPatientId(Integer patientId) {
         this.patientId = patientId;
     }
 

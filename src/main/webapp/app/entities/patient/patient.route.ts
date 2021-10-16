@@ -39,7 +39,7 @@ export const patientRoute: Routes = [
     path: '',
     component: PatientComponent,
     data: {
-      authorities: [Authority.USER, Authority.DOCTOR],
+      authorities: [Authority.USER],
       defaultSort: 'id,asc',
       pageTitle: 'tdahApp.patient.home.title',
     },
@@ -52,7 +52,7 @@ export const patientRoute: Routes = [
       patient: PatientResolve,
     },
     data: {
-      authorities: [Authority.USER, Authority.DOCTOR],
+      authorities: [Authority.USER],
       pageTitle: 'tdahApp.patient.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -64,7 +64,7 @@ export const patientRoute: Routes = [
       patient: PatientResolve,
     },
     data: {
-      authorities: [Authority.USER, Authority.DOCTOR],
+      authorities: [Authority.USER],
       pageTitle: 'tdahApp.patient.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -76,7 +76,7 @@ export const patientRoute: Routes = [
       patient: PatientResolve,
     },
     data: {
-      authorities: [Authority.USER, Authority.DOCTOR],
+      authorities: [Authority.USER],
       pageTitle: 'tdahApp.patient.home.title',
     },
     canActivate: [UserRouteAccessService],

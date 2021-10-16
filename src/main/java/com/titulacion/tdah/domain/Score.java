@@ -35,10 +35,12 @@ public class Score implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties(value = "scores", allowSetters = true)
+    @JoinColumn(name = "patient_id")
     private Patient patient;
 
     @ManyToOne
     @JsonIgnoreProperties(value = "scores", allowSetters = true)
+    @JoinColumn(name = "game_id")
     private Game game;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

@@ -1,12 +1,10 @@
 package com.titulacion.tdah.web.rest;
 
-import com.titulacion.tdah.domain.User;
-import com.titulacion.tdah.repository.UserRepository;
-import com.titulacion.tdah.security.SecurityUtils;
 import com.titulacion.tdah.service.PatientService;
-import com.titulacion.tdah.service.UserService;
 import com.titulacion.tdah.web.rest.errors.BadRequestAlertException;
 import com.titulacion.tdah.service.dto.PatientDTO;
+import com.titulacion.tdah.service.dto.PatientCriteria;
+import com.titulacion.tdah.service.PatientQueryService;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
@@ -37,26 +35,18 @@ public class PatientResource {
 
     private final Logger log = LoggerFactory.getLogger(PatientResource.class);
 
-    private static class PatientResourceException extends RuntimeException {
-        private PatientResourceException(String message) {
-            super(message);
-        }
-    }
-
     private static final String ENTITY_NAME = "patient";
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
     private final PatientService patientService;
-    private final UserService userService;
 
-    private final UserRepository userRepository;
+    private final PatientQueryService patientQueryService;
 
-    public PatientResource(PatientService patientService, UserRepository userRepository, UserService userService) {
+    public PatientResource(PatientService patientService, PatientQueryService patientQueryService) {
         this.patientService = patientService;
-        this.userRepository = userRepository;
-        this.userService = userService;
+        this.patientQueryService = patientQueryService;
     }
 
     /**
@@ -73,7 +63,6 @@ public class PatientResource {
             throw new BadRequestAlertException("A new patient cannot already have an ID", ENTITY_NAME, "idexists");
         }
         PatientDTO result = patientService.save(patientDTO);
-        userService.registerPatientUser(result);
         return ResponseEntity.created(new URI("/api/patients/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -104,14 +93,27 @@ public class PatientResource {
      * {@code GET  /patients} : get all the patients.
      *
      * @param pageable the pagination information.
+     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of patients in body.
      */
     @GetMapping("/patients")
-    public ResponseEntity<List<PatientDTO>> getAllPatients(Pageable pageable) {
-        log.debug("REST request to get a page of Patients");
-        Page<PatientDTO> page = patientService.findAll(pageable);
+    public ResponseEntity<List<PatientDTO>> getAllPatients(PatientCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get Patients by criteria: {}", criteria);
+        Page<PatientDTO> page = patientQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * {@code GET  /patients/count} : count all the patients.
+     *
+     * @param criteria the criteria which the requested entities should match.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
+     */
+    @GetMapping("/patients/count")
+    public ResponseEntity<Long> countPatients(PatientCriteria criteria) {
+        log.debug("REST request to count Patients by criteria: {}", criteria);
+        return ResponseEntity.ok().body(patientQueryService.countByCriteria(criteria));
     }
 
     /**
@@ -127,17 +129,6 @@ public class PatientResource {
         return ResponseUtil.wrapOrNotFound(patientDTO);
     }
 
-
-    @GetMapping("/patient-data")
-    public ResponseEntity<PatientDTO> getPatient() {
-        String userLogin = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new PatientResource.PatientResourceException("Current user login not found"));
-        Optional<User> existingUser = userRepository.findOneWithAuthoritiesByLogin(userLogin);
-        if(!existingUser.isPresent()) throw new PatientResource.PatientResourceException("User could not be found");
-        Optional<PatientDTO> patientDTO = patientService.findOne(existingUser.get().getPatientId());
-        if(!patientDTO.isPresent()) throw new PatientResource.PatientResourceException("Patient could not be found");
-        return ResponseUtil.wrapOrNotFound(patientDTO);
-    }
-
     /**
      * {@code DELETE  /patients/:id} : delete the "id" patient.
      *
@@ -150,6 +141,4 @@ public class PatientResource {
         patientService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
-
-
 }

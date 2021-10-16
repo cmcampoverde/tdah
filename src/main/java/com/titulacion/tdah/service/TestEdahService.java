@@ -1,6 +1,5 @@
 package com.titulacion.tdah.service;
 
-import com.titulacion.tdah.Util.RandomString;
 import com.titulacion.tdah.domain.TestEdah;
 import com.titulacion.tdah.repository.TestEdahRepository;
 import com.titulacion.tdah.service.dto.TestEdahDTO;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Service Implementation for managing {@link TestEdah}.
@@ -29,13 +27,9 @@ public class TestEdahService {
 
     private final TestEdahMapper testEdahMapper;
 
-    private final MailService mailService;
-
-
-    public TestEdahService(TestEdahRepository testEdahRepository, TestEdahMapper testEdahMapper, MailService mailService) {
+    public TestEdahService(TestEdahRepository testEdahRepository, TestEdahMapper testEdahMapper) {
         this.testEdahRepository = testEdahRepository;
         this.testEdahMapper = testEdahMapper;
-        this.mailService = mailService;
     }
 
     /**
@@ -48,24 +42,6 @@ public class TestEdahService {
         log.debug("Request to save TestEdah : {}", testEdahDTO);
         TestEdah testEdah = testEdahMapper.toEntity(testEdahDTO);
         testEdah = testEdahRepository.save(testEdah);
-        return testEdahMapper.toDto(testEdah);
-    }
-
-    public TestEdahDTO saveToSendEmail(TestEdahDTO testEdahDTO) {
-        log.debug("Request to save TestEdah : {}", testEdahDTO);
-        testEdahDTO.setAnswered(false);
-        RandomString randomString = new RandomString(8, ThreadLocalRandom.current());
-        String keyEdah = randomString.nextString();
-        testEdahDTO.setKey(keyEdah);
-        TestEdah testEdah = testEdahMapper.toEntity(testEdahDTO);
-        testEdah = testEdahRepository.save(testEdah);
-        mailService.sendEmail(
-            testEdahDTO.getTeacherEmail(),
-            "Test Edah",
-            "Porfavor llena el Test: http://localhost:8080/edah/test-edah/?key=" + keyEdah,
-            false,
-            false);
-
         return testEdahMapper.toDto(testEdah);
     }
 
@@ -90,7 +66,7 @@ public class TestEdahService {
      * @return the entity.
      */
     @Transactional(readOnly = true)
-    public Optional<TestEdahDTO> findOne(Long id) {
+    public Optional<TestEdahDTO> findOne(Integer id) {
         log.debug("Request to get TestEdah : {}", id);
         return testEdahRepository.findById(id)
             .map(testEdahMapper::toDto);
@@ -101,7 +77,7 @@ public class TestEdahService {
      *
      * @param id the id of the entity.
      */
-    public void delete(Long id) {
+    public void delete(Integer id) {
         log.debug("Request to delete TestEdah : {}", id);
         testEdahRepository.deleteById(id);
     }

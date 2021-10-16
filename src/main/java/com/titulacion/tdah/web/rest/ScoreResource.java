@@ -1,7 +1,9 @@
 package com.titulacion.tdah.web.rest;
 
 import com.titulacion.tdah.service.ScoreService;
+import com.titulacion.tdah.service.UserService;
 import com.titulacion.tdah.service.dto.GameDTO;
+import com.titulacion.tdah.service.dto.UserDTO;
 import com.titulacion.tdah.web.rest.errors.BadRequestAlertException;
 import com.titulacion.tdah.service.dto.ScoreDTO;
 
@@ -15,6 +17,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,8 +43,10 @@ public class ScoreResource {
     private String applicationName;
 
     private final ScoreService scoreService;
+    private final UserService userService;
 
-    public ScoreResource(ScoreService scoreService) {
+    public ScoreResource(ScoreService scoreService, UserService userService) {
+        this.userService = userService;
         this.scoreService = scoreService;
     }
 
@@ -133,7 +139,17 @@ public class ScoreResource {
     @GetMapping("/scores/lowers")
     public ResponseEntity<List<ScoreService.ResultLower>> getLowersScores() {
         log.debug("REST request to get a page of Scores");
-        List<ScoreService.ResultLower> scores = scoreService.findLowersScores();
+        UserDTO userDTO = userService.getUserWithAuthorities()
+            .map(UserDTO::new)
+            .orElseThrow(() -> new AccountResource.AccountResourceException("User could not be found"));
+        List<ScoreService.ResultLower> scores = scoreService.findLowersScores(userDTO.getPatientId());
+        return ResponseEntity.ok().body(scores);
+    }
+
+    @GetMapping("/scores/lowers/{idPatient}")
+    public ResponseEntity<List<ScoreService.ResultLower>> getLowersScores(@PathVariable Integer idPatient) {
+        log.debug("REST request to get a page of Scores");
+        List<ScoreService.ResultLower> scores = scoreService.findLowersScores(idPatient);
         return ResponseEntity.ok().body(scores);
     }
 
@@ -145,7 +161,10 @@ public class ScoreResource {
     @GetMapping("/scores/last-levels")
     public ResponseEntity<List<ScoreService.ResultLastLevel>> getALastLevelsByGames() {
         log.debug("REST request to get a page of Games");
-        List<ScoreService.ResultLastLevel> scoreServiceLastLevelsByGame= scoreService.getLastLevelsByGame();
+        UserDTO userDTO = userService.getUserWithAuthorities()
+            .map(UserDTO::new)
+            .orElseThrow(() -> new AccountResource.AccountResourceException("User could not be found"));
+        List<ScoreService.ResultLastLevel> scoreServiceLastLevelsByGame= scoreService.getLastLevelsByGame(userDTO.getPatientId());
         return ResponseEntity.ok().body(scoreServiceLastLevelsByGame);
     }
 }

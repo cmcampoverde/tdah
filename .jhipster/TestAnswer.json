@@ -1,0 +1,35 @@
+{
+  "fluentMethods": true,
+  "clientRootFolder": "",
+  "relationships": [
+    {
+      "relationshipName": "testEdah",
+      "otherEntityName": "testEdah",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "id",
+      "otherEntityRelationshipName": "testAnswer"
+    },
+    {
+      "relationshipName": "question",
+      "otherEntityName": "question",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "id",
+      "otherEntityRelationshipName": "testAnswer"
+    }
+  ],
+  "fields": [
+    {
+      "fieldName": "value",
+      "fieldType": "Integer"
+    }
+  ],
+  "changelogDate": "20211016015231",
+  "dto": "mapstruct",
+  "searchEngine": false,
+  "service": "serviceClass",
+  "entityTableName": "test_answer",
+  "databaseType": "sql",
+  "readOnly": false,
+  "jpaMetamodelFiltering": true,
+  "pagination": "pagination"
+}

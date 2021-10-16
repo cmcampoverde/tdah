@@ -57,6 +57,7 @@ public class CacheConfiguration {
             createCache(cm, com.titulacion.tdah.domain.TestEdah.class.getName() + ".patients");
             createCache(cm, com.titulacion.tdah.domain.Game.class.getName());
             createCache(cm, com.titulacion.tdah.domain.Score.class.getName());
+            createCache(cm, com.titulacion.tdah.domain.TestAnswer.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

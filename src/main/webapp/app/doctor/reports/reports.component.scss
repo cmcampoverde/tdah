@@ -2,3 +2,22 @@
   width: 100px;
   text-align: center;
 }
+
+.level {
+  h6 {
+    color: #e1960d;
+  }
+  p {
+    font-weight: 200;
+    span {
+      font-weight: 600;
+    }
+  }
+}
+
+table.mat-table {
+  width: 100%;
+}
+.mat-column-name {
+  flex: 0 0 50% !important;
+}

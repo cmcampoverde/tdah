@@ -35,6 +35,9 @@ const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
         },
         {
           path: 'edah',
+          data: {
+            authorities: [],
+          },
           loadChildren: () => import('./edahTest/edahTest.module').then(m => m.EdahTestModule),
         },
         ...LAYOUT_ROUTES,

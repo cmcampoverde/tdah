@@ -71,12 +71,12 @@ public class ScoreService {
      * @return the list of entities.
      */
     @Transactional(readOnly = true)
-    public List<ResultLower> findLowersScores() {
+    public List<ResultLower> findLowersScores(Integer patientId) {
         log.debug("Request to get lower Scores");
         List<ResultLower> resultLowerList = new ArrayList<>();
-        resultLowerList.add(new ResultLower(1, getLowersByLevelByGame(1)));
-        resultLowerList.add(new ResultLower(2, getLowersByLevelByGame(2)));
-        resultLowerList.add(new ResultLower(3, getLowersByLevelByGame(3)));
+        resultLowerList.add(new ResultLower(1, getLowersByLevelByGame(1, patientId)));
+        resultLowerList.add(new ResultLower(2, getLowersByLevelByGame(2, patientId)));
+        resultLowerList.add(new ResultLower(3, getLowersByLevelByGame(3, patientId)));
 
         return resultLowerList;
     }
@@ -108,8 +108,8 @@ public class ScoreService {
     }
 
 
-    public List<Score> getLowersByLevelByGame(int idGame) {
-        List<Score> allScores = scoreRepository.findAll();
+    public List<Score> getLowersByLevelByGame(int idGame, Integer idPatient) {
+        List<Score> allScores = scoreRepository.findAllByPatientId(idPatient);
         List<Score> scores = allScores.stream().filter(score -> score.getGame().getId() == idGame).collect(Collectors.toList());
 
         Comparator<Score> comparator = new Comparator<Score>() {
@@ -182,9 +182,9 @@ public class ScoreService {
         scoreRepository.deleteById(id);
     }
 
-    public List<ResultLastLevel> getLastLevelsByGame() {
+    public List<ResultLastLevel> getLastLevelsByGame(Integer patientId) {
         log.debug("Request to get last levels by Game");
-        List<Score> scores = scoreRepository.findAll();
+        List<Score> scores = scoreRepository.findAllByPatientId(patientId);
 
         Comparator<Score> comparator = new Comparator<Score>() {
             @Override

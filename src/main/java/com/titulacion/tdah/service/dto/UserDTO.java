@@ -52,7 +52,7 @@ public class UserDTO {
 
     private boolean isDoctor;
 
-    private Long patientId;
+    private Integer patientId;
 
     public UserDTO() {
         // Empty constructor needed for Jackson.
@@ -189,11 +189,11 @@ public class UserDTO {
         isDoctor = doctor;
     }
 
-    public Long getPatientId() {
+    public Integer getPatientId() {
         return patientId;
     }
 
-    public void setPatientId(Long patientId) {
+    public void setPatientId(Integer patientId) {
         this.patientId = patientId;
     }
 

@@ -3,6 +3,8 @@ package com.titulacion.tdah.web.rest;
 import com.titulacion.tdah.service.QuestionService;
 import com.titulacion.tdah.web.rest.errors.BadRequestAlertException;
 import com.titulacion.tdah.service.dto.QuestionDTO;
+import com.titulacion.tdah.service.dto.QuestionCriteria;
+import com.titulacion.tdah.service.QuestionQueryService;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
@@ -40,8 +42,11 @@ public class QuestionResource {
 
     private final QuestionService questionService;
 
-    public QuestionResource(QuestionService questionService) {
+    private final QuestionQueryService questionQueryService;
+
+    public QuestionResource(QuestionService questionService, QuestionQueryService questionQueryService) {
         this.questionService = questionService;
+        this.questionQueryService = questionQueryService;
     }
 
     /**
@@ -88,14 +93,27 @@ public class QuestionResource {
      * {@code GET  /questions} : get all the questions.
      *
      * @param pageable the pagination information.
+     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of questions in body.
      */
     @GetMapping("/questions")
-    public ResponseEntity<List<QuestionDTO>> getAllQuestions(Pageable pageable) {
-        log.debug("REST request to get a page of Questions");
-        Page<QuestionDTO> page = questionService.findAll(pageable);
+    public ResponseEntity<List<QuestionDTO>> getAllQuestions(QuestionCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get Questions by criteria: {}", criteria);
+        Page<QuestionDTO> page = questionQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * {@code GET  /questions/count} : count all the questions.
+     *
+     * @param criteria the criteria which the requested entities should match.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
+     */
+    @GetMapping("/questions/count")
+    public ResponseEntity<Long> countQuestions(QuestionCriteria criteria) {
+        log.debug("REST request to count Questions by criteria: {}", criteria);
+        return ResponseEntity.ok().body(questionQueryService.countByCriteria(criteria));
     }
 
     /**

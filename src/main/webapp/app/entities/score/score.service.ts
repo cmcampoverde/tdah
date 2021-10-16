@@ -7,9 +7,12 @@ import * as moment from 'moment';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared/util/request-util';
 import { IScore } from 'app/shared/model/score.model';
+import { IResultLower } from '../../shared/model/result-lower.model';
 
 type EntityResponseType = HttpResponse<IScore>;
 type EntityArrayResponseType = HttpResponse<IScore[]>;
+
+type EntityArrayResponseTypeLowers = HttpResponse<IResultLower[]>;
 
 @Injectable({ providedIn: 'root' })
 export class ScoreService {
@@ -69,5 +72,11 @@ export class ScoreService {
       });
     }
     return res;
+  }
+
+  public getLowerScores(idPatient?: number): Observable<EntityArrayResponseTypeLowers> {
+    return this.http
+      .get<IResultLower[]>(this.resourceUrl + '/lowers/' + idPatient, { observe: 'response' })
+      .pipe(map((res: EntityArrayResponseTypeLowers) => res));
   }
 }

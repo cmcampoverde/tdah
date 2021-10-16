@@ -24,6 +24,7 @@ public class PatientDTO implements Serializable {
 
     private String diagnostic;
 
+    @NotNull
     private String sex;
 
     @NotNull

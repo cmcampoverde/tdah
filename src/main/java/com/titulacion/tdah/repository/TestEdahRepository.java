@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface TestEdahRepository extends JpaRepository<TestEdah, Long> {
+public interface TestEdahRepository extends JpaRepository<TestEdah, Integer>, JpaSpecificationExecutor<TestEdah> {
 }

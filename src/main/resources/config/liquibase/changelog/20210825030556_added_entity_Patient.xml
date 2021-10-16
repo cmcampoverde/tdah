@@ -6,7 +6,7 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-
+    
     <!--
         Added the entity Patient.
     -->
@@ -30,8 +30,8 @@
             <column name="diagnostic" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="sex" type="varchar(10)">
-                <constraints nullable="true" />
+            <column name="sex" type="varchar(255)">
+                <constraints nullable="false" />
             </column>
             <column name="parent" type="varchar(255)">
                 <constraints nullable="false" />

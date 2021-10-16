@@ -18,7 +18,7 @@ public interface TestEdahMapper extends EntityMapper<TestEdahDTO, TestEdah> {
     @Mapping(source = "patientId", target = "patient")
     TestEdah toEntity(TestEdahDTO testEdahDTO);
 
-    default TestEdah fromId(Long id) {
+    default TestEdah fromId(Integer id) {
         if (id == null) {
             return null;
         }
