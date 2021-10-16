@@ -53,6 +53,7 @@ public class UserMapper {
             Set<Authority> authorities = this.authoritiesFromStrings(userDTO.getAuthorities());
             user.setAuthorities(authorities);
             user.setDoctor(userDTO.isDoctor());
+            user.setPatientId(userDTO.getPatientId());
             return user;
         }
     }

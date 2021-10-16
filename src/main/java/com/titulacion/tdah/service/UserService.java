@@ -88,6 +88,10 @@ public class UserService {
             });
     }
 
+    public Integer getPatientIdByLogin(String login) {
+        return userRepository.findOneByLogin(login).get().getPatientId();
+    }
+
     public User registerUser(UserDTO userDTO, String password) {
         userRepository.findOneByLogin(userDTO.getLogin().toLowerCase()).ifPresent(existingUser -> {
             boolean removed = removeNonActivatedUser(existingUser);

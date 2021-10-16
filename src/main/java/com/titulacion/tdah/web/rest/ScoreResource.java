@@ -142,7 +142,8 @@ public class ScoreResource {
         UserDTO userDTO = userService.getUserWithAuthorities()
             .map(UserDTO::new)
             .orElseThrow(() -> new AccountResource.AccountResourceException("User could not be found"));
-        List<ScoreService.ResultLower> scores = scoreService.findLowersScores(userDTO.getPatientId());
+        Integer patientId = userService.getPatientIdByLogin(userDTO.getLogin());
+        List<ScoreService.ResultLower> scores = scoreService.findLowersScores(patientId);
         return ResponseEntity.ok().body(scores);
     }
 
@@ -164,7 +165,8 @@ public class ScoreResource {
         UserDTO userDTO = userService.getUserWithAuthorities()
             .map(UserDTO::new)
             .orElseThrow(() -> new AccountResource.AccountResourceException("User could not be found"));
-        List<ScoreService.ResultLastLevel> scoreServiceLastLevelsByGame= scoreService.getLastLevelsByGame(userDTO.getPatientId());
+        Integer patientId = userService.getPatientIdByLogin(userDTO.getLogin());
+        List<ScoreService.ResultLastLevel> scoreServiceLastLevelsByGame= scoreService.getLastLevelsByGame(patientId);
         return ResponseEntity.ok().body(scoreServiceLastLevelsByGame);
     }
 }
