@@ -76,10 +76,10 @@ export class EdahComponent implements OnInit {
 
   loadAnswers = (testId: number | undefined) => {
     this.testAnswerService.query({ 'test_id.equals': testId }).subscribe(response => {
-      // eslint-disable-next-line no-console
-      console.log(response);
       if (response.ok) {
         this.answers = response.body as ITestAnswer[];
+        // eslint-disable-next-line no-console
+        console.log(this.answers);
       }
     });
   };
