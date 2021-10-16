@@ -28,6 +28,7 @@ public class TestAnswer implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties(value = "testAnswers", allowSetters = true)
+    @JoinColumn(name = "test_id")
     private TestEdah testEdah;
 
     @ManyToOne

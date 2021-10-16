@@ -1,6 +1,10 @@
 package com.titulacion.tdah.web.rest;
 
+import com.titulacion.tdah.domain.User;
+import com.titulacion.tdah.repository.UserRepository;
+import com.titulacion.tdah.security.SecurityUtils;
 import com.titulacion.tdah.service.PatientService;
+import com.titulacion.tdah.service.UserService;
 import com.titulacion.tdah.web.rest.errors.BadRequestAlertException;
 import com.titulacion.tdah.service.dto.PatientDTO;
 import com.titulacion.tdah.service.dto.PatientCriteria;
@@ -33,6 +37,12 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class PatientResource {
 
+    private static class PatientResourceException extends RuntimeException {
+        private PatientResourceException(String message) {
+            super(message);
+        }
+    }
+
     private final Logger log = LoggerFactory.getLogger(PatientResource.class);
 
     private static final String ENTITY_NAME = "patient";
@@ -41,12 +51,16 @@ public class PatientResource {
     private String applicationName;
 
     private final PatientService patientService;
+    private final UserService userService;
+    private final UserRepository userRepository;
 
     private final PatientQueryService patientQueryService;
 
-    public PatientResource(PatientService patientService, PatientQueryService patientQueryService) {
+    public PatientResource(PatientService patientService, PatientQueryService patientQueryService, UserRepository userRepository, UserService userService) {
         this.patientService = patientService;
         this.patientQueryService = patientQueryService;
+        this.userService = userService;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -63,6 +77,7 @@ public class PatientResource {
             throw new BadRequestAlertException("A new patient cannot already have an ID", ENTITY_NAME, "idexists");
         }
         PatientDTO result = patientService.save(patientDTO);
+        userService.registerPatientUser(result);
         return ResponseEntity.created(new URI("/api/patients/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -126,6 +141,16 @@ public class PatientResource {
     public ResponseEntity<PatientDTO> getPatient(@PathVariable Integer id) {
         log.debug("REST request to get Patient : {}", id);
         Optional<PatientDTO> patientDTO = patientService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(patientDTO);
+    }
+
+    @GetMapping("/patient-data")
+    public ResponseEntity<PatientDTO> getPatient() {
+        String userLogin = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new PatientResource.PatientResourceException("Current user login not found"));
+        Optional<User> existingUser = userRepository.findOneWithAuthoritiesByLogin(userLogin);
+        if(!existingUser.isPresent()) throw new PatientResource.PatientResourceException("User could not be found");
+        Optional<PatientDTO> patientDTO = patientService.findOne(existingUser.get().getPatientId());
+        if(!patientDTO.isPresent()) throw new PatientResource.PatientResourceException("Patient could not be found");
         return ResponseUtil.wrapOrNotFound(patientDTO);
     }
 
