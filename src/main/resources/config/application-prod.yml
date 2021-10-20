@@ -53,10 +53,19 @@ spring:
   liquibase:
     contexts: prod
   mail:
-    host: smtp-mail.outlook.com
+    host: smtp.office365.com
     port: 587
     username: carlos_ingsold@hotmail.com
     password: Carlos170895
+    protocol: smtp
+    properties.mail.smtp:
+      auth: true
+      ssl.trust: smtp.office365.com
+      starttls.enable: true
+      starttls.required: true
+      connectiontimeout: 5000
+      timeout: 5000
+      writetimeout: 5000
   thymeleaf:
     cache: true
   sleuth:
