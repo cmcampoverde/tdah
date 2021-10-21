@@ -35,4 +35,8 @@ export class QuestionService {
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
+
+  readQuestions(): Observable<EntityArrayResponseType> {
+    return this.http.get<IQuestion[]>(SERVER_API_URL + 'api/read/questions', { observe: 'response' });
+  }
 }

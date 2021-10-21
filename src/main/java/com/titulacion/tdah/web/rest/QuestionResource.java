@@ -104,6 +104,14 @@ public class QuestionResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+    @GetMapping("/read/questions")
+    public ResponseEntity<List<QuestionDTO>> readAllQuestions(QuestionCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get Questions by criteria: {}", criteria);
+        Page<QuestionDTO> page = questionQueryService.findByCriteria(criteria, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
     /**
      * {@code GET  /questions/count} : count all the questions.
      *

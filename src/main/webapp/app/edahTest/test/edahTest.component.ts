@@ -11,7 +11,7 @@ import { TestAnswer } from '../../shared/model/test-answer.model';
 import { TestAnswerService } from '../../entities/test-answer/test-answer.service';
 
 @Component({
-  selector: 'jhi-password',
+  selector: 'jhi-edah-test',
   templateUrl: './edahTest.component.html',
 })
 export class EdahTestComponent implements OnInit {
@@ -19,7 +19,7 @@ export class EdahTestComponent implements OnInit {
   error = false;
   success = false;
 
-  displayedColumns: string[] = ['question', 'options', 'type'];
+  displayedColumns: string[] = ['question', 'options'];
 
   dataSource?: IQuestion[];
   key?: string;
@@ -49,7 +49,7 @@ export class EdahTestComponent implements OnInit {
   }
 
   loadEdah = () => {
-    this.questionService.query().subscribe(response => {
+    this.questionService.readQuestions().subscribe(response => {
       // eslint-disable-next-line no-console
       console.log(response);
       this.dataSource = response.body as IQuestion[];
@@ -58,7 +58,7 @@ export class EdahTestComponent implements OnInit {
   };
 
   loadDataTestEdah = () => {
-    this.testEdahService.query({ 'key.equals': this.key }).subscribe(response => {
+    this.testEdahService.readTestEdahs({ 'key.equals': this.key }).subscribe(response => {
       // eslint-disable-next-line no-console
       console.log(response);
       const testEdahs = response.body as ITestEdah[];
@@ -73,7 +73,7 @@ export class EdahTestComponent implements OnInit {
 
   loadPatientData = (test: number | undefined) => {
     if (test) {
-      this.patientService.query({ 'id.equals': test }).subscribe(response => {
+      this.patientService.readPatient({ 'id.equals': test }).subscribe(response => {
         // eslint-disable-next-line no-console
         console.log(response);
         this.patient = (response.body as IPatient[]).pop();

@@ -103,6 +103,14 @@ public class TestEdahResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+    @GetMapping("/read/test-edahs")
+    public ResponseEntity<List<TestEdahDTO>> readAllTestEdahs(TestEdahCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get TestEdahs by criteria: {}", criteria);
+        Page<TestEdahDTO> page = testEdahQueryService.findByCriteria(criteria, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
     /**
      * {@code GET  /test-edahs/count} : count all the testEdahs.
      *
@@ -139,5 +147,17 @@ public class TestEdahResource {
         log.debug("REST request to delete TestEdah : {}", id);
         testEdahService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+
+    @PostMapping("/test-edahs/send-edah")
+    public ResponseEntity<TestEdahDTO> sendTestEdah(@RequestBody TestEdahDTO testEdahDTO) throws URISyntaxException {
+        log.debug("REST request to save and send TestEdah : {}", testEdahDTO);
+        if (testEdahDTO.getId() != null) {
+            throw new BadRequestAlertException("A new testEdah cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        TestEdahDTO result = testEdahService.saveToSendEmail(testEdahDTO);
+        return ResponseEntity.created(new URI("/api/test-edahs/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+            .body(result);
     }
 }

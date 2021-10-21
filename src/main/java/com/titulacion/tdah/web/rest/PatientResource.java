@@ -119,6 +119,14 @@ public class PatientResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+    @GetMapping("/read/patients")
+    public ResponseEntity<List<PatientDTO>> readAllPatients(PatientCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get Patients by criteria: {}", criteria);
+        Page<PatientDTO> page = patientQueryService.findByCriteria(criteria, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
     /**
      * {@code GET  /patients/count} : count all the patients.
      *

@@ -13,7 +13,7 @@ import { ITestAnswer } from '../../../shared/model/test-answer.model';
   styleUrls: ['./edah.component.scss'],
 })
 export class EdahComponent implements OnInit {
-  displayedColumns: string[] = ['question', 'options', 'type'];
+  displayedColumns: string[] = ['number', 'question', 'options', 'type'];
 
   dataSource?: IQuestion[];
   teacherEmail?: string;
@@ -59,8 +59,10 @@ export class EdahComponent implements OnInit {
   };
 
   loadTestAnswered = () => {
-    if (this.patientService.currentPatient)
-      this.testEdahService.query({ 'patient_id.equals': this.patientService.currentPatient.id }).subscribe(response => {
+    if (this.patientService.currentPatient) {
+      // eslint-disable-next-line no-console
+      console.log(this.patientService.currentPatient.id);
+      this.testEdahService.query({ 'patientId.equals': this.patientService.currentPatient.id }).subscribe(response => {
         if (response.ok) {
           const testEdahs = response.body as ITestEdah[];
           this.testEdah = testEdahs.pop();
@@ -72,10 +74,11 @@ export class EdahComponent implements OnInit {
           this.noYetMessage = true;
         }
       });
+    }
   };
 
   loadAnswers = (testId: number | undefined) => {
-    this.testAnswerService.query({ 'test_id.equals': testId }).subscribe(response => {
+    this.testAnswerService.query({ 'testEdahId.equals': testId }).subscribe(response => {
       if (response.ok) {
         this.answers = response.body as ITestAnswer[];
         // eslint-disable-next-line no-console

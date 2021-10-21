@@ -39,4 +39,9 @@ export class TestEdahService {
   sendEmailEdah(testEdah: ITestEdah): Observable<EntityResponseType> {
     return this.http.post<ITestEdah>(`${this.resourceUrl}/send-edah`, testEdah, { observe: 'response' });
   }
+
+  readTestEdahs(req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http.get<ITestEdah[]>(SERVER_API_URL + 'api/read/test-edahs', { params: options, observe: 'response' });
+  }
 }

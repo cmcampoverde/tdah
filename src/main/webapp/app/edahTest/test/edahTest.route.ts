@@ -7,6 +7,6 @@ export const edahTestRoute: Route = {
   component: EdahTestComponent,
   data: {
     authorities: [],
-    pageTitle: 'global.menu.account.password',
+    pageTitle: 'Test EDAH',
   },
 };
