@@ -106,7 +106,7 @@ public class TestEdahService {
         mailService.sendEmail(
             testEdahDTO.getTeacherEmail(),
             "Test Edah",
-            "Porfavor llena el Test: " + jHipsterProperties.getMail().getBaseUrl() +"/edah/test-edah/?key=" + keyEdah,
+            "Porfavor llena el Test: " + jHipsterProperties.getMail().getBaseUrl() +"/edah/test-edah?key=" + keyEdah,
             false,
             false);
 
