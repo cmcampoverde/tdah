@@ -23,6 +23,10 @@ export class TestEdahService {
     return this.http.put<ITestEdah>(this.resourceUrl, testEdah, { observe: 'response' });
   }
 
+  updatePublic(testEdah: ITestEdah): Observable<EntityResponseType> {
+    return this.http.put<ITestEdah>(SERVER_API_URL + 'api/update/test-edahs', testEdah, { observe: 'response' });
+  }
+
   find(id: number): Observable<EntityResponseType> {
     return this.http.get<ITestEdah>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }

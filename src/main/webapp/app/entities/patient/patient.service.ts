@@ -75,7 +75,7 @@ export class PatientService {
   readPatient(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http
-      .get<IPatient[]>(this.resourceUrl, { params: options, observe: 'response' })
+      .get<IPatient[]>(SERVER_API_URL + 'api/read/patients', { params: options, observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 }

@@ -67,6 +67,18 @@ public class TestAnswerResource {
             .body(result);
     }
 
+    @PostMapping("/insert/test-answers")
+    public ResponseEntity<TestAnswerDTO> insertTestAnswer(@RequestBody TestAnswerDTO testAnswerDTO) throws URISyntaxException {
+        log.debug("REST request to save TestAnswer : {}", testAnswerDTO);
+        if (testAnswerDTO.getId() != null) {
+            throw new BadRequestAlertException("A new testAnswer cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        TestAnswerDTO result = testAnswerService.save(testAnswerDTO);
+        return ResponseEntity.created(new URI("/api/test-answers/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }
+
     /**
      * {@code PUT  /test-answers} : Updates an existing testAnswer.
      *

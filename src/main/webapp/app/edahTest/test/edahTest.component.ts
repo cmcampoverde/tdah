@@ -13,6 +13,7 @@ import { TestAnswerService } from '../../entities/test-answer/test-answer.servic
 @Component({
   selector: 'jhi-edah-test',
   templateUrl: './edahTest.component.html',
+  styleUrls: ['./edahTest.component.scss'],
 })
 export class EdahTestComponent implements OnInit {
   doNotMatch = false;
@@ -100,14 +101,14 @@ export class EdahTestComponent implements OnInit {
     // eslint-disable-next-line no-console
     console.log(this.answers);
     this.answers.map(answer => [
-      this.testAnswerService.create(answer).subscribe(success => {
+      this.testAnswerService.insertAnswer(answer).subscribe(success => {
         // eslint-disable-next-line no-console
         console.log(success);
       }),
     ]);
     if (!this.testEdah) return;
     this.testEdah.answered = true;
-    this.testEdahService.update(this.testEdah).subscribe(response => {
+    this.testEdahService.updatePublic(this.testEdah).subscribe(response => {
       if (response.ok) {
         this.successMessage = true;
       }

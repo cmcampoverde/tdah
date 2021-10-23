@@ -1,7 +1,11 @@
 <div class="container">
-    <div class="row">
+    <div class="row" style="margin-top: 3rem;">
         <hr>
         <h2>TEST EDAH</h2>
+        <hr>
+        <br>
+    </div>
+    <div class="row">
         <p>El EDAH, permite evaluar el déficit de atención con hiperactividad (TDAH) y recoge información sobre la
             conducta habitual del niño.</p>
         <hr>
@@ -10,6 +14,21 @@
         </div>
         <div *ngIf="successMessage" class="alert alert-success">
             <p>ESTE HA SIDO RESPONDIDO Y ENVIADO</p>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div style="width: 1000px; text-align: center">
+            <mat-grid-list cols="4" rowHeight="50px">
+                <mat-grid-tile class="box font-weight-bold"><p>Nunca</p></mat-grid-tile>
+                <mat-grid-tile class="box font-weight-bold"><p>Poco</p></mat-grid-tile>
+                <mat-grid-tile class="box font-weight-bold"><p>Bastante</p></mat-grid-tile>
+                <mat-grid-tile class="box font-weight-bold"><p>Mucho</p></mat-grid-tile>
+                <mat-grid-tile class="box"><p>0</p></mat-grid-tile>
+                <mat-grid-tile class="box"><p>1</p></mat-grid-tile>
+                <mat-grid-tile class="box"><p>2</p></mat-grid-tile>
+                <mat-grid-tile class="box"><p>3</p></mat-grid-tile>
+            </mat-grid-list>
         </div>
         <div class="col-md-6">
             <div style="height: 100%; width: 100%; margin-top: 3rem;" *ngIf="key">
@@ -42,16 +61,16 @@
 
 
         <div class="col-md-6" *ngIf="testEdah && patient">
-            <div class="col-md-4 background-gray">
+            <div class="background-gray" style="margin-top: 3rem;">
                 <div class="title-space">
-                    <h3 class="display-6 center animate__animated animate__bounce"
-                        jhiTranslate="home.patients">Patients</h3>
                     <mat-card>
                         <mat-card-content>
-                            <div style="height: 300px; position: relative">
+                            <div style="height: 300px; position: relative;">
                                 <p>Estimado {{testEdah.teacherName}}, </p>
                                 <p>Muy comedidamente se le solicita, pueda usted evaluar
                                     a {{patient.name}} {{patient.lastName}} con el siguiente Test</p>
+                                <p>0 1 2 3, son grados de con que frecuencia se perciben estas conductas.</p>
+
                                 <hr/>
                                 <p>Otras indicaciones: {{testEdah.instructions}}</p>
                             </div>

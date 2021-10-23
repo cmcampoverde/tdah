@@ -19,6 +19,10 @@ export class TestAnswerService {
     return this.http.post<ITestAnswer>(this.resourceUrl, testAnswer, { observe: 'response' });
   }
 
+  insertAnswer(testAnswer: ITestAnswer): Observable<EntityResponseType> {
+    return this.http.post<ITestAnswer>(SERVER_API_URL + 'api/insert/test-answers', testAnswer, { observe: 'response' });
+  }
+
   update(testAnswer: ITestAnswer): Observable<EntityResponseType> {
     return this.http.put<ITestAnswer>(this.resourceUrl, testAnswer, { observe: 'response' });
   }

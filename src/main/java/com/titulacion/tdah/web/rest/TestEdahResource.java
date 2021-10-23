@@ -88,6 +88,18 @@ public class TestEdahResource {
             .body(result);
     }
 
+    @PutMapping("/update/test-edahs")
+    public ResponseEntity<TestEdahDTO> updatePublicTestEdah(@RequestBody TestEdahDTO testEdahDTO) throws URISyntaxException {
+        log.debug("REST request to update TestEdah : {}", testEdahDTO);
+        if (testEdahDTO.getId() == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        TestEdahDTO result = testEdahService.save(testEdahDTO);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, testEdahDTO.getId().toString()))
+            .body(result);
+    }
+
     /**
      * {@code GET  /test-edahs} : get all the testEdahs.
      *

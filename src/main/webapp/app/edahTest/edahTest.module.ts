@@ -9,6 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgJhipsterModule } from 'ng-jhipster';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { NgJhipsterModule } from 'ng-jhipster';
     FormsModule,
     CommonModule,
     NgJhipsterModule,
+    MatGridListModule,
   ],
   declarations: [EdahTestComponent],
 })
