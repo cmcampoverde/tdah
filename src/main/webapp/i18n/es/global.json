@@ -148,5 +148,5 @@
       "not.image": "File was expected to be an image but was found to be \"{{ fileType }}\""
     }
   },
-  "footer": "Pie de página"
+  "footer": "©Copyright, 2022 Campoverde - Erazo. Este sitio se publica bajo la autorí de la Universidad Central del Ecuador"
 }
