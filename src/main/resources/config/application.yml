@@ -39,7 +39,7 @@ eureka:
       git-branch: ${git.branch:}
 ribbon:
   eureka:
-    enabled: true
+    enabled: false
 management:
   endpoints:
     web:
